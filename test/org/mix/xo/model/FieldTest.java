@@ -1,9 +1,7 @@
 package org.mix.xo.model;
 
 import org.junit.Test;
-import org.mix.xo.model.exception.AlreadyOccupiedException;
-import org.mix.xo.model.exception.InvalidPointException;
-import org.mix.xo.model.exception.XOException;
+import org.mix.xo.model.exception.*;
 
 import java.awt.*;
 
@@ -45,6 +43,7 @@ public class FieldTest {
     public void testGetFigureWhenPointIsLessZero() throws XOException {
         final Point pointXLess = new Point(-2, 2);
         final Point pointYLess = new Point(2, -2);
+        final Point pointXYLess = new Point(-2, -2);
 
         try {
             baseField.getFigure(pointXLess);
@@ -59,12 +58,20 @@ public class FieldTest {
         } catch (InvalidPointException e) {
             System.out.println("Test for the pointYLess is passed");
         }
+
+        try {
+            baseField.getFigure(pointXLess);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointXYLess is passed");
+        }
     }
 
     @Test
     public void testGetFigureWhenPointIsMoreSize() throws XOException {
         final Point pointXMore = new Point(5, 2);
         final Point pointYMore = new Point(2, 5);
+        final Point pointXYMore = new Point(5, 5);
 
         try {
             baseField.getFigure(pointXMore);
@@ -78,6 +85,13 @@ public class FieldTest {
             fail();
         } catch (InvalidPointException e) {
             System.out.println("Test for the pointYMore is passed");
+        }
+
+        try {
+            baseField.getFigure(pointXYMore);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointXYMore is passed");
         }
     }
 }
