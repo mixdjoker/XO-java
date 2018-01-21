@@ -1,7 +1,6 @@
 package org.mix.xo.model;
 
-import org.mix.xo.model.exception.AlreadyOccupiedException;
-import org.mix.xo.model.exception.InvalidPointException;
+import org.mix.xo.model.exception.*;
 
 import java.awt.*;
 
