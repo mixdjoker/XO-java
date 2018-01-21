@@ -3,6 +3,7 @@ package org.mix.xo.model;
 import org.junit.Test;
 import org.mix.xo.model.exception.AlreadyOccupiedException;
 import org.mix.xo.model.exception.InvalidPointException;
+import org.mix.xo.model.exception.XOException;
 
 import java.awt.*;
 
@@ -12,6 +13,7 @@ public class FieldTest {
 
     private final Point inputPoint = new Point(2, 2);
     private final Figure inputFigureX = Figure.X;
+    private final Field baseField = new Field();
 
     @Test
     public void getSize() {
@@ -24,12 +26,58 @@ public class FieldTest {
     @Test
     public void setFigure() throws AlreadyOccupiedException, InvalidPointException {
         final Figure expectedFigureX = inputFigureX;
-        final Field field = new Field();
 
-        field.setFigure(inputPoint, inputFigureX);
+        baseField.setFigure(inputPoint, inputFigureX);
 
-        final Figure actualFigure = field.getFigure(inputPoint);
+        final Figure actualFigure = baseField.getFigure(inputPoint);
 
         assertEquals(expectedFigureX, actualFigure);
+    }
+
+    @Test
+    public void testGetFigureWhenFigureIsNotSet() throws XOException {
+        final Figure actualFigure = baseField.getFigure(inputPoint);
+
+        assertNull(actualFigure);
+    }
+
+    @Test
+    public void testGetFigureWhenPointIsLessZero() throws XOException {
+        final Point pointXLess = new Point(-2, 2);
+        final Point pointYLess = new Point(2, -2);
+
+        try {
+            baseField.getFigure(pointXLess);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointXLess is passed");
+        }
+
+        try {
+            baseField.getFigure(pointYLess);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointYLess is passed");
+        }
+    }
+
+    @Test
+    public void testGetFigureWhenPointIsMoreSize() throws XOException {
+        final Point pointXMore = new Point(5, 2);
+        final Point pointYMore = new Point(2, 5);
+
+        try {
+            baseField.getFigure(pointXMore);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointXMore is passed");
+        }
+
+        try {
+            baseField.getFigure(pointYMore);
+            fail();
+        } catch (InvalidPointException e) {
+            System.out.println("Test for the pointYMore is passed");
+        }
     }
 }
