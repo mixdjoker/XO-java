@@ -1,6 +1,8 @@
 package org.mix.xo.model;
 
 import org.junit.Test;
+import org.mix.xo.model.exception.AlreadyOccupiedException;
+import org.mix.xo.model.exception.InvalidPointException;
 
 import java.awt.*;
 
@@ -20,11 +22,12 @@ public class FieldTest {
     }
 
     @Test
-    public void setFigure() {
+    public void setFigure() throws AlreadyOccupiedException, InvalidPointException {
         final Figure expectedFigureX = inputFigureX;
         final Field field = new Field();
 
         field.setFigure(inputPoint, inputFigureX);
+
         final Figure actualFigure = field.getFigure(inputPoint);
 
         assertEquals(expectedFigureX, actualFigure);
