@@ -33,21 +33,6 @@ public class FieldTest {
     }
 
     @Test
-    public void setFigureWhenAlreadyOccupied() throws XOException {
-        baseField.setFigure(inputPoint, inputFigureX);
-
-        try {
-            baseField.setFigure(inputPoint, inputFigureX);
-            fail();
-        } catch (AlreadyOccupiedException e) {
-            System.out.println("AlreadyOccupied test passed");
-        }
-
-
-
-    }
-
-    @Test
     public void testGetFigureWhenFigureIsNotSet() throws XOException {
         final Figure actualFigure = baseField.getFigure(inputPoint);
 
