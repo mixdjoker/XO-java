@@ -11,22 +11,22 @@ public class WinnerController {
     public Figure getWinner(final Field field) {
         try {
             for (int i = 0; i < 3; i++) {
-                if (check(field, new Point(i,0), new Point(i, 1), new Point(i, 2))) {
+                if (check(field, new Point(i, 0), point -> new Point(point.x, point.y + 1))) {
                     return field.getFigure(new Point(i, 0));
                 }
             }
 
             for (int i = 0; i < 3; i++) {
-                if (check(field, new Point(0,i), new Point(1, i), new Point(2, i))) {
+                if (check(field, new Point(0, i), point -> new Point(point.x + 1, point.y))) {
                     return field.getFigure(new Point(0, i));
                 }
             }
 
-            if (check(field, new Point(0,0), new Point(1, 1), new Point(2, 2))) {
+            if (check(field, new Point(0, 0), point -> new Point(point.x + 1, point.y + 1))) {
                 return field.getFigure(new Point(0, 0));
             }
 
-            if (check(field, new Point(2,0), new Point(1, 1), new Point(0, 2))) {
+            if (check(field, new Point(2, 0), point -> new Point(point.x - 1, point.y + 1))) {
                 return field.getFigure(new Point(0, 2));
             }
 
@@ -37,7 +37,12 @@ public class WinnerController {
         return null;
     }
 
-    private boolean check(final Field field, final Point p1, final Point p2, final Point p3) {
+    private boolean check(final Field field, final Point startPoint, IPointChanger iPointChanger) {
+
+        final Point p1 = startPoint;
+        final Point p2 = iPointChanger.next(p1);
+        final Point p3 = iPointChanger.next(p2);
+
         try {
             return (field.getFigure(p1) == field.getFigure(p2)) && (field.getFigure(p2) == field.getFigure(p3))
                     && (field.getFigure(p1) != null);
@@ -45,5 +50,11 @@ public class WinnerController {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private interface IPointChanger {
+
+        Point next(final Point point);
+
     }
 }
