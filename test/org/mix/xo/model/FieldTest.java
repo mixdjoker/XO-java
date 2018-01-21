@@ -22,7 +22,7 @@ public class FieldTest {
     }
 
     @Test
-    public void setFigure() throws AlreadyOccupiedException, InvalidPointException {
+    public void setFigure() throws XOException {
         final Figure expectedFigureX = inputFigureX;
 
         baseField.setFigure(inputPoint, inputFigureX);
@@ -30,6 +30,21 @@ public class FieldTest {
         final Figure actualFigure = baseField.getFigure(inputPoint);
 
         assertEquals(expectedFigureX, actualFigure);
+    }
+
+    @Test
+    public void setFigureWhenAlreadyOccupied() throws XOException {
+        baseField.setFigure(inputPoint, inputFigureX);
+
+        try {
+            baseField.setFigure(inputPoint, inputFigureX);
+            fail();
+        } catch (AlreadyOccupiedException e) {
+            System.out.println("AlreadyOccupied test passed");
+        }
+
+
+
     }
 
     @Test
@@ -49,21 +64,21 @@ public class FieldTest {
             baseField.getFigure(pointXLess);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointXLess is passed");
+            System.out.println("Test for the pointXLess passed");
         }
 
         try {
             baseField.getFigure(pointYLess);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointYLess is passed");
+            System.out.println("Test for the pointYLess passed");
         }
 
         try {
-            baseField.getFigure(pointXLess);
+            baseField.getFigure(pointXYLess);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointXYLess is passed");
+            System.out.println("Test for the pointXYLess passed");
         }
     }
 
@@ -77,21 +92,21 @@ public class FieldTest {
             baseField.getFigure(pointXMore);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointXMore is passed");
+            System.out.println("Test for the pointXMore passed");
         }
 
         try {
             baseField.getFigure(pointYMore);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointYMore is passed");
+            System.out.println("Test for the pointYMore passed");
         }
 
         try {
             baseField.getFigure(pointXYMore);
             fail();
         } catch (InvalidPointException e) {
-            System.out.println("Test for the pointXYMore is passed");
+            System.out.println("Test for the pointXYMore passed");
         }
     }
 }
