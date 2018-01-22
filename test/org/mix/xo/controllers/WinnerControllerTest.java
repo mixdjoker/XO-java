@@ -11,27 +11,54 @@ import static org.junit.Assert.*;
 
 public class WinnerControllerTest {
 
+    private static final int POINT_ARRAY_COUNT = 3;
+
+    private void winnerCheckBody(Figure inputFigure, Point[] points) throws InvalidPointException {
+        final Field field = new Field();
+
+        final WinnerController winnerController = new WinnerController();
+
+        for (Point point : points) {
+            field.setFigure(point, inputFigure);
+        }
+
+        final Figure actualFigure = winnerController.getWinner(field);
+
+        assertEquals(inputFigure, actualFigure);
+    }
+
+    private void winnerColumnCheck(Figure inputFigure) throws InvalidPointException {
+
+        for (int i = 0; i < POINT_ARRAY_COUNT; i++) {
+            final Point[] pointSetXArray = {
+                    new Point(i, 0),
+                    new Point(i, 1),
+                    new Point(i, 2)
+            };
+
+            winnerCheckBody(inputFigure, pointSetXArray);
+        }
+    }
+
+    private void winnerRowCheck(Figure inputFigure) throws InvalidPointException {
+
+        for (int i = 0; i < POINT_ARRAY_COUNT; i++) {
+            final Point[] pointSetOArray = {
+                    new Point(0, i),
+                    new Point(1, i),
+                    new Point(2, i)
+            };
+
+            winnerCheckBody(inputFigure, pointSetOArray);
+        }
+    }
+
     @Test
     public void getWinnerColumnXCheck() throws InvalidPointException {
 
         final Figure inputFigure = Figure.X;
 
-        for (int i = 0; i < 3; i++) {
-            final Field field = new Field();
-            final Point inputPoint1 = new Point(i, 0);
-            final Point inputPoint2 = new Point(i, 1);
-            final Point inputPoint3 = new Point(i, 2);
-
-            final WinnerController winnerController = new WinnerController();
-
-            field.setFigure(inputPoint1, inputFigure);
-            field.setFigure(inputPoint2, inputFigure);
-            field.setFigure(inputPoint3, inputFigure);
-
-            final Figure actualFigure = winnerController.getWinner(field);
-
-            assertEquals(inputFigure, actualFigure);
-        }
+        winnerColumnCheck(inputFigure);
     }
 
     @Test
@@ -39,22 +66,7 @@ public class WinnerControllerTest {
 
         final Figure inputFigure = Figure.X;
 
-        for (int i = 0; i < 3; i++) {
-            final Field field = new Field();
-            final Point inputPoint1 = new Point(0, i);
-            final Point inputPoint2 = new Point(1, i);
-            final Point inputPoint3 = new Point(2, i);
-
-            final WinnerController winnerController = new WinnerController();
-
-            field.setFigure(inputPoint1, inputFigure);
-            field.setFigure(inputPoint2, inputFigure);
-            field.setFigure(inputPoint3, inputFigure);
-
-            final Figure actualFigure = winnerController.getWinner(field);
-
-            assertEquals(inputFigure, actualFigure);
-        }
+        winnerRowCheck(inputFigure);
     }
 
     @Test
@@ -62,22 +74,7 @@ public class WinnerControllerTest {
 
         final Figure inputFigure = Figure.O;
 
-        for (int i = 0; i < 3; i++) {
-            final Field field = new Field();
-            final Point inputPoint1 = new Point(i, 0);
-            final Point inputPoint2 = new Point(i, 1);
-            final Point inputPoint3 = new Point(i, 2);
-
-            final WinnerController winnerController = new WinnerController();
-
-            field.setFigure(inputPoint1, inputFigure);
-            field.setFigure(inputPoint2, inputFigure);
-            field.setFigure(inputPoint3, inputFigure);
-
-            final Figure actualFigure = winnerController.getWinner(field);
-
-            assertEquals(inputFigure, actualFigure);
-        }
+        winnerColumnCheck(inputFigure);
     }
 
     @Test
@@ -85,22 +82,7 @@ public class WinnerControllerTest {
 
         final Figure inputFigure = Figure.O;
 
-        for (int i = 0; i < 3; i++) {
-            final Field field = new Field();
-            final Point inputPoint1 = new Point(0, i);
-            final Point inputPoint2 = new Point(1, i);
-            final Point inputPoint3 = new Point(2, i);
-
-            final WinnerController winnerController = new WinnerController();
-
-            field.setFigure(inputPoint1, inputFigure);
-            field.setFigure(inputPoint2, inputFigure);
-            field.setFigure(inputPoint3, inputFigure);
-
-            final Figure actualFigure = winnerController.getWinner(field);
-
-            assertEquals(inputFigure, actualFigure);
-        }
+        winnerRowCheck(inputFigure);
     }
 
     @Test
