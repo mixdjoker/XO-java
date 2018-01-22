@@ -149,6 +149,28 @@ public class WinnerControllerTest {
     }
 
     @Test
+    public void getNoWinnerDiagCheck() throws InvalidPointException {
+
+        final Figure inputFigureX = Figure.X;
+        final Figure inputFigureO = Figure.O;
+
+        final Field field = new Field();
+        final Point inputPoint1 = new Point(0, 0);
+        final Point inputPoint2 = new Point(1, 1);
+        final Point inputPoint3 = new Point(2, 2);
+
+        final WinnerController winnerController = new WinnerController();
+
+        field.setFigure(inputPoint1, inputFigureX);
+        field.setFigure(inputPoint2, inputFigureO);
+        field.setFigure(inputPoint3, inputFigureX);
+
+        final Figure actualFigure = winnerController.getWinner(field);
+
+        assertNull(actualFigure);
+    }
+
+    @Test
     public void getWinnerInvertDiagCheck() throws InvalidPointException {
 
         final Figure inputFigureX = Figure.X;
@@ -167,5 +189,27 @@ public class WinnerControllerTest {
         final Figure actualFigure = winnerController.getWinner(field);
 
         assertEquals(inputFigureX, actualFigure);
+    }
+
+    @Test
+    public void getNoWinnerInvertDiagCheck() throws InvalidPointException {
+
+        final Figure inputFigureX = Figure.X;
+        final Figure inputFigureO = Figure.O;
+
+        final Field field = new Field();
+        final Point inputPoint1 = new Point(0, 2);
+        final Point inputPoint2 = new Point(1, 1);
+        final Point inputPoint3 = new Point(2, 0);
+
+        final WinnerController winnerController = new WinnerController();
+
+        field.setFigure(inputPoint1, inputFigureX);
+        field.setFigure(inputPoint2, inputFigureO);
+        field.setFigure(inputPoint3, inputFigureX);
+
+        final Figure actualFigure = winnerController.getWinner(field);
+
+        assertNull(actualFigure);
     }
 }
